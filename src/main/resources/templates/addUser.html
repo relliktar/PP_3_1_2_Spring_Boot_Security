@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new user</title>
+</head>
+<body>
+<th:block th:include="/_menu"></th:block>
+<form th:action="@{/admin}"
+      th:object="${user}"
+      method="post">
+    <table>
+        <tr>
+            <td>Email</td>
+            <td><label>
+                <input type="text" name="email" th:field="*{email}"/>
+            </label></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><label>
+                <input type="password" name="password" th:field="*{password}"/>
+            </label></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><label>
+                <input type="text" name="username" th:field="*{username}"/>
+            </label></td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td><label>
+                <input type="text" name="lastName" th:field="*{lastName}"/>
+            </label></td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td><label>
+                <input type="number" name="age" th:field="*{age}"/>
+            </label></td>
+        </tr>
+        <tr>
+            <td>Roles</td>
+            <td>
+                <label>
+                    <select multiple="multiple" size="${roles.size()}" name="select">
+                        <option disabled>Select roles</option>
+                        <option selected hidden>ROLE_USER</option>
+                        <option th:each="role:${roles}"
+                                th:value="${role.getName()}"
+                                th:text="${role.getName()}"
+                        ></option>
+                    </select>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Add"/>
+            </td>
+            <td><a href="/admin">Back</a>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

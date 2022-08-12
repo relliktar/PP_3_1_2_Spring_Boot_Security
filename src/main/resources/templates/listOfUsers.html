@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <title>Users</title>
+</head>
+<body>
+<th:block th:include="/_menu"></th:block>
+<div th:unless="${#lists.isEmpty(users)}">
+    <h3>List of users</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Last name</th>
+            <th>Age</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+            <td th:text="${user.getUsername()}"></td>
+            <td th:text="${user.getLastName()}"></td>
+            <td th:text="${user.getAge()}"></td>
+            <td th:each="role : ${user.getRoles()}" th:text="${role.getName()}"></td>
+            <td><a th:href="@{/admin/editUser/{id}(id=${user.getId()})}">Edit</a>
+                <a th:href="@{/admin/deleteUser/{id}(id=${user.getId()})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<h4><a href="/admin/addUser">Add new user</a></h4>
+</body>
+</html>
