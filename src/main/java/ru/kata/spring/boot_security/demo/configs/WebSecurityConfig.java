@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.configs;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,15 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
-    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsService userDetailsService) {
         this.successUserHandler = successUserHandler;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override

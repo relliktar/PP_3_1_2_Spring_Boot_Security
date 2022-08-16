@@ -60,8 +60,10 @@
                     <select multiple="multiple" size="${roles.size()}" name="select">
                         <option disabled>Select roles</option>
                         <option th:each="role:${roles}"
-                                th:value="${role.getName()}"
-                                th:text="${role.getName()}"></option>
+                                th:value="${role.getId()}"
+                                th:text="${role.getName()}"
+                                th:selected="${user.getRoles().contains(role) ? 'selected' : 'false'}"
+                        ></option>
                     </select>
                 </label>
             </td>

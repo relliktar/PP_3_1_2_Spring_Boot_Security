@@ -8,7 +8,7 @@
 <body>
 <th:block th:include="/_menu"></th:block>
 <form th:action="@{/admin}"
-      th:object="${user}"
+      th:object="${newUser}"
       method="post">
     <table>
         <tr>
@@ -47,10 +47,10 @@
                 <label>
                     <select multiple="multiple" size="${roles.size()}" name="select">
                         <option disabled>Select roles</option>
-                        <option selected hidden>ROLE_USER</option>
                         <option th:each="role:${roles}"
-                                th:value="${role.getName()}"
+                                th:value="${role.getId()}"
                                 th:text="${role.getName()}"
+                                th:selected="${role.getName().equals('ROLE_USER') ? 'selected' :'false'}"
                         ></option>
                     </select>
                 </label>

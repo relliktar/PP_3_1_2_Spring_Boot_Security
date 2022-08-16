@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.Mapping;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -36,7 +37,8 @@ public class User implements UserDetails {
     @Column(name = "age")
     private int age;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="users_roles", joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="roles_id"))
     private Set<Role> roles;
 
     @Override

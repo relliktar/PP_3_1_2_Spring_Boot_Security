@@ -38,13 +38,14 @@ public class AdminController {
 
     @GetMapping("/addUser")
     public String addUser(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("newUser", new User());
         model.addAttribute("roles", roleService.getAllRoles());
         return "addUser";
     }
 
     @PostMapping
-    public String addUser(@ModelAttribute User user, @RequestParam(name = "select") String[] select) {
+    public String addUser(@ModelAttribute User user,
+                          @RequestParam(name = "select") Long[] select) {
         userService.saveUser(user, select);
         return "redirect:/admin";
     }
