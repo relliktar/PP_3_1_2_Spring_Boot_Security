@@ -18,9 +18,12 @@ import java.util.Set;
 class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     private UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
-    UserServiceImpl(PasswordEncoder passwordEncoder) {
+    private List<Role> roles;
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -40,23 +43,11 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public void saveUser(User user, Long[] selected) {
-        Set<Role> roles;
-        List<Role> allRoles = roleRepository.findAll();
-        User userFromDB = userRepository.findUserByEmail(user.getEmail());
-        if (userFromDB != null) {
-            allRoles.forEach(role -> {
-                if (!Arrays.asList(selected).contains(role.getId())) {
-                    userFromDB.getRoles().remove(role);
-                }
-            });
-            roles = userFromDB.getRoles();
-        } else {
-            roles = new HashSet<>();
-        }
+    public void saveUser(User user, Long[] roleId) {
+        Set<Role> roles = new HashSet<>();
+        List<Role> allRoles = getRoles();
         allRoles.forEach(role -> {
-            if (Arrays.asList(selected).contains(role.getId())) {
+            if (Arrays.asList(roleId).contains(role.getId())) {
                 roles.add(role);
             }
         });
@@ -71,12 +62,14 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).get();
-    }
-
-    @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    private List<Role> getRoles() {
+        if (roles == null) {
+            roles = roleRepository.findAll();
+        }
+        return roles;
     }
 }

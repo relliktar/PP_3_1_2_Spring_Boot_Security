@@ -45,7 +45,7 @@
             <td>Roles</td>
             <td>
                 <label>
-                    <select multiple="multiple" size="${roles.size()}" name="select">
+                    <select multiple="multiple" size="${roles.size()}" name="roleId">
                         <option disabled>Select roles</option>
                         <option th:each="role:${roles}"
                                 th:value="${role.getId()}"
