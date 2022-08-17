@@ -3,11 +3,9 @@ package ru.kata.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.repository.RoleRepository;
-import ru.kata.spring.boot_security.demo.repository.UserRepository;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -16,11 +14,9 @@ import java.util.Set;
 
 @Service
 class UserServiceImpl implements UserService {
-    private RoleRepository roleRepository;
+    private RoleService roleService;
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-
-    private List<Role> roles;
 
     @Autowired
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
@@ -28,8 +24,8 @@ class UserServiceImpl implements UserService {
     }
 
     @Autowired
-    public void setRoleRepository(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
+    public void setRoleRepository(RoleService roleService) {
+        this.roleService = roleService;
     }
 
     @Autowired
@@ -45,7 +41,7 @@ class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user, Long[] roleId) {
         Set<Role> roles = new HashSet<>();
-        List<Role> allRoles = getRoles();
+        List<Role> allRoles = roleService.getAllRoles();
         allRoles.forEach(role -> {
             if (Arrays.asList(roleId).contains(role.getId())) {
                 roles.add(role);
@@ -64,12 +60,5 @@ class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
-    }
-
-    private List<Role> getRoles() {
-        if (roles == null) {
-            roles = roleRepository.findAll();
-        }
-        return roles;
     }
 }
