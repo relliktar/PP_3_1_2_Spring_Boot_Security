@@ -40,14 +40,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user, Long[] roleId) {
-        Set<Role> roles = new HashSet<>();
-        List<Role> allRoles = roleService.getAllRoles();
-        allRoles.forEach(role -> {
-            if (Arrays.asList(roleId).contains(role.getId())) {
-                roles.add(role);
-            }
-        });
-        user.setRoles(roles);
+        user.setRoles(roleService.getSetRoles(roleId));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
