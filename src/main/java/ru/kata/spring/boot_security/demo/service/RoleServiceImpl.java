@@ -29,13 +29,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     public Set<Role> getSetRoles(Long[] roleId) {
-        Set<Role> roles = new HashSet<>();
-        List<Role> allRoles = getAllRoles();
-        allRoles.forEach(role -> {
-            if (Arrays.asList(roleId).contains(role.getId())) {
-                roles.add(role);
-            }
-        });
-        return roles;
+        return roleRepository.findByIdIn(roleId);
     }
 }
