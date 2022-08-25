@@ -19,6 +19,7 @@
             <th>Age</th>
             <th>Roles</th>
             <th>Actions</th>
+            <th>Password</th>
         </tr>
         </thead>
         <tbody>
@@ -32,6 +33,7 @@
             <td><a th:href="@{/admin/editUser/{id}(id=${user.getId()})}">Edit</a>
                 <a th:href="@{/admin/deleteUser/{id}(id=${user.getId()})}">Delete</a>
             </td>
+            <td th:text="${user.getPassword()}"></td>
         </tr>
         </tbody>
     </table>

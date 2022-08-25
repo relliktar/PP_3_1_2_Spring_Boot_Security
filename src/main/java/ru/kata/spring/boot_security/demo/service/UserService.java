@@ -11,5 +11,5 @@ public interface UserService {
 
     void saveUser(User user, Long[] roles);
 
-    User findByName(String name);
+    User findById(Long id);
 }
