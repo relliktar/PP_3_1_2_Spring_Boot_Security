@@ -1,0 +1,85 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row justify-content-center">
+      <form class="col-4"
+            th:action="@{/admin}"
+            th:object="${editUser}"
+            method="post"
+            id="edit">
+        <div class="row text-center fw-bold fs-6 py-2">
+          <label class="form-label"
+                 for="labelId">
+            ID</label>
+          <input class="form-control form-control-sm"
+                 id="labelId"
+                 type="text"
+                 name="id"
+                 th:value="${user.getId()}" disabled>
+        </div>
+        <div class="row text-center fw-bold fs-6 py-2">
+          <label for="labelFirstName"
+                 class="form-label">
+            First name</label>
+          <input class="form-control form-control-sm"
+                 id="labelFirstName"
+                 type="text"
+                 name="username"
+                 th:value="${user.getUsername()}" disabled>
+        </div>
+        <div class="row text-center fw-bold fs-6 py-2">
+          <label for="labelLastName"
+                 class="form-label">
+            Last name</label>
+          <input class="form-control form-control-sm"
+                 id="labelLastName"
+                 type="text"
+                 name="lastName"
+                 th:value="${user.getLastName()}" disabled>
+        </div>
+        <div class="row text-center fw-bold fs-6 py-2">
+          <label for="labelAge"
+                 class="form-label">Age</label>
+          <input class="form-control form-control-sm"
+                 id="labelAge"
+                 type="number"
+                 name="age"
+                 th:value="${user.getAge()}" disabled>
+        </div>
+        <div class="row text-center fw-bold fs-6 py-2">
+          <label for="labelEmail"
+                 class="form-label">Email</label>
+          <input class="form-control form-control-sm"
+                 id="labelEmail"
+                 type="text"
+                 name="email"
+                 th:value="${user.getEmail()}" disabled>
+        </div>
+        <div class="row text-center fw-bold fs-6 py-2">
+          <label class="form-label"
+                 for="select">Role</label>
+          <select class="form-select"
+                  id="select"
+                  multiple="multiple"
+                  size="${roles.size()}"
+                  name="roleId" disabled>
+            <option th:each="role:${roles}"
+                    th:value="${role.getId()}"
+                    th:text="${role.getName()}"
+                    th:selected="${user.getRoles().contains(role) ? 'selected' : 'false'}"
+            ></option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+    </button>
+    <a th:href="@{/admin/deleteUser/{id}(id=${user.getId()})}" class="btn btn-danger" form="edit">Delete</a>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row justify-content-center">
+            <form class="col-4"
+                  th:action="@{/admin/saveUser}"
+                  th:object="${user}"
+                  method="post"
+                  th:id="${'edit'+user.getId()}">
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label class="form-label"
+                           for="labelId">
+                        ID</label>
+                    <input class="form-control form-control-sm"
+                           id="labelId"
+                           type="text"
+                           th:value="${user.getId()}" disabled>
+                    <input type="text" hidden name="id" th:value="${user.getId()}">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label for="labelFirstName"
+                           class="form-label">
+                        First name</label>
+                    <input class="form-control form-control-sm"
+                           id="labelFirstName"
+                           type="text"
+                           name="username"
+                           th:value="${user.getUsername()}">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label for="labelLastName"
+                           class="form-label">
+                        Last name</label>
+                    <input class="form-control form-control-sm"
+                           id="labelLastName"
+                           type="text"
+                           name="lastName"
+                           th:value="${user.getLastName()}">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label for="labelAge"
+                           class="form-label">Age</label>
+                    <input class="form-control form-control-sm"
+                           id="labelAge"
+                           type="number"
+                           name="age"
+                           th:value="${user.getAge()}">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label for="labelEmail"
+                           class="form-label">Email</label>
+                    <input class="form-control form-control-sm"
+                           id="labelEmail"
+                           type="text"
+                           name="email"
+                           th:value="${user.getEmail()}">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label for="labelPassword"
+                           class="form-label">Password</label>
+                    <input class="form-control form-control-sm"
+                           id="labelPassword"
+                           type="password"
+                           name="password"
+                           th:value="${user.getPassword()}">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label class="form-label"
+                           for="select">Role</label>
+                    <select class="form-select"
+                            id="select"
+                            multiple="multiple"
+                            size="${roles.size()}"
+                            name="roleId">
+                        <option disabled>Select roles</option>
+                        <option th:each="role:${roles}"
+                                th:value="${role.getId()}"
+                                th:text="${role.getName()}"
+                                th:selected="${user.getRoles().contains(role) ? 'selected' : 'false'}"
+                        ></option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+        <input class="btn btn-primary" type="submit" th:form="${'edit'+user.getId()}" value="Edit">
+    </div>
+</div>

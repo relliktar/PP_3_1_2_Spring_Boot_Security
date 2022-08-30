@@ -20,8 +20,10 @@ public class AdminController {
 
     @GetMapping()
     public String printUsers(Model model) {
+        model.addAttribute("newUser", new User());
         model.addAttribute("users", userService.getUsersList());
-        return "listOfUsers";
+        model.addAttribute("roles", roleService.getAllRoles());
+        return "adminPanel";
     }
 
     @GetMapping("/editUser/{user}")
@@ -38,7 +40,7 @@ public class AdminController {
         return "addUser";
     }
 
-    @PostMapping
+    @PostMapping("/saveUser")
     public String addUser(@ModelAttribute User user,
                           @RequestParam(name = "roleId") Long[] roleId) {
         userService.saveUser(user, roleId);

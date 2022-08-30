@@ -1,43 +1,70 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
-    <title>Users</title>
-</head>
-<body>
-<th:block th:include="/_menu"></th:block>
-<div th:unless="${#lists.isEmpty(users)}">
-    <h3>List of users</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Last name</th>
-            <th>Age</th>
-            <th>Roles</th>
-            <th>Actions</th>
-            <th>Password</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.getId()}"></td>
-            <td th:text="${user.getEmail()}"></td>
-            <td th:text="${user.getUsername()}"></td>
-            <td th:text="${user.getLastName()}"></td>
-            <td th:text="${user.getAge()}"></td>
-            <td th:each="role : ${user.getRoles()}" th:text="${role.getName()}"></td>
-            <td><a th:href="@{/admin/editUser/{id}(id=${user.getId()})}">Edit</a>
-                <a th:href="@{/admin/deleteUser/{id}(id=${user.getId()})}">Delete</a>
-            </td>
-            <td th:text="${user.getPassword()}"></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="card"
+     xmlns:th="http://www.thymeleaf.org">
+    <h5 class="card-header">All users</h5>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.getId()}"></td>
+                <td th:text="${user.getUsername()}"></td>
+                <td th:text="${user.getLastName()}"></td>
+                <td th:text="${user.getAge()}"></td>
+                <td th:text="${user.getEmail()}"></td>
+                <td>
+                <span th:each="role, iterStat : ${user.getRoles()}"
+                      th:text="!${iterStat.last} ? ${role.getName().replaceFirst('ROLE_', '')}+', ' : ${role.getName().replaceFirst('ROLE_', '')}">
+                </span>
+                </td>
+                <td>
+                    <button type="button"
+                            class="btn btn-info btn-sm"
+                            data-bs-toggle="modal"
+                            th:data-bs-target="${'#editModal'+user.getId()}">
+                        Edit
+                    </button>
+
+                    <div class="modal fade"
+                         th:id="${'editModal'+user.getId()}"
+                         tabindex="-1"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <th:block th:include="/_modalEdit"></th:block>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button type="button"
+                            class="btn btn-danger btn-sm"
+                            data-bs-toggle="modal"
+                            th:data-bs-target="${'#deleteModal'+user.getId()}">
+                        Delete
+                    </button>
+
+                    <div class="modal fade"
+                         th:id="${'deleteModal'+user.getId()}"
+                         tabindex="-1"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <th:block th:include="/_modalDelete"></th:block>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<h4><a href="/admin/addUser">Add new user</a></h4>
-</body>
-</html>

@@ -10,6 +10,4 @@ public interface UserService {
     void deleteUser(Long id);
 
     void saveUser(User user, Long[] roles);
-
-    User findById(Long id);
 }

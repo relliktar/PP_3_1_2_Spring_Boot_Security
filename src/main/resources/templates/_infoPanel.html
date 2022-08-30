@@ -1,0 +1,21 @@
+<div xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+     class="container-fluid pt-4 bg-dark text-white align-top">
+    <div class="row">
+        <div class="col-10 ">
+            <p sec:authorize="isAuthenticated()">
+                <span sec:authentication="name"></span>
+                with roles:
+                <span sec:authorize="hasRole('ADMIN')">ADMIN</span>
+                <span sec:authorize="hasRole('USER')">USER</span>
+            </p>
+        </div>
+        <div class="col-1 align-item-end">
+            <a class="text-secondary align-item-end"
+               th:if="${#request.userPrincipal == null}"
+               th:href="@{/login}">Login</a>
+            <a class="text-secondary align-item-end"
+               sec:authorize="isAuthenticated()"
+               th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</div>
