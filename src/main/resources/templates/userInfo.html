@@ -58,23 +58,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td th:text="${user.getId()}"></td>
-                    <td th:text="${user.getUsername()}"></td>
-                    <td th:text="${user.getLastName()}"></td>
-                    <td th:text="${user.getAge()}"></td>
-                    <td th:text="${user.getEmail()}"></td>
-                    <td>
-                        <span th:each="role, iterStat : ${user.getRoles()}"
-                              th:text="!${iterStat.last} ? ${role.getName().replaceFirst('ROLE_', '')}+', ' : ${role.getName().replaceFirst('ROLE_', '')}">
-                </span>
-                    </td>
-                </tr>
                 </tbody>
             </table>
             </div></div>
         </div>
     </div>
 </div>
+<script src="/js/user.js"></script>
 </body>
 </html>

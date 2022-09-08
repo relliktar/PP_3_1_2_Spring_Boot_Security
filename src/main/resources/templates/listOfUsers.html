@@ -1,8 +1,7 @@
-<div class="card"
-     xmlns:th="http://www.thymeleaf.org">
+<div class="card">
     <h5 class="card-header">All users</h5>
     <div class="card-body">
-        <table class="table table-striped">
+        <table id="tableUsers" class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -16,55 +15,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.getId()}"></td>
-                <td th:text="${user.getUsername()}"></td>
-                <td th:text="${user.getLastName()}"></td>
-                <td th:text="${user.getAge()}"></td>
-                <td th:text="${user.getEmail()}"></td>
-                <td>
-                <span th:each="role, iterStat : ${user.getRoles()}"
-                      th:text="!${iterStat.last} ? ${role.getName().replaceFirst('ROLE_', '')}+', ' : ${role.getName().replaceFirst('ROLE_', '')}">
-                </span>
-                </td>
-                <td>
-                    <button type="button"
-                            class="btn btn-info btn-sm"
-                            data-bs-toggle="modal"
-                            th:data-bs-target="${'#editModal'+user.getId()}">
-                        Edit
-                    </button>
-
-                    <div class="modal fade"
-                         th:id="${'editModal'+user.getId()}"
-                         tabindex="-1"
-                         aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <th:block th:include="/_modalEdit"></th:block>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <button type="button"
-                            class="btn btn-danger btn-sm"
-                            data-bs-toggle="modal"
-                            th:data-bs-target="${'#deleteModal'+user.getId()}">
-                        Delete
-                    </button>
-
-                    <div class="modal fade"
-                         th:id="${'deleteModal'+user.getId()}"
-                         tabindex="-1"
-                         aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <th:block th:include="/_modalDelete"></th:block>
-                        </div>
-                    </div>
-                </td>
-            </tr>
             </tbody>
         </table>
+
+        <div class="modal fade"
+             id="modal"
+             tabindex="-1"
+             aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <th:block th:include="/_modal"></th:block>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,0 +1,77 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Edit user</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row justify-content-center">
+            <form class="col-4" id="modalForm">
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label class="form-label"
+                           for="modalId">
+                        ID</label>
+                    <input class="form-control form-control-sm"
+                           id="modalId"
+                           type="text" disabled>
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label for="modalFirstName"
+                           class="form-label">
+                        First name</label>
+                    <input class="form-control form-control-sm"
+                           id="modalFirstName"
+                           type="text"
+                           name="username">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label for="modalLastName"
+                           class="form-label">
+                        Last name</label>
+                    <input class="form-control form-control-sm"
+                           id="modalLastName"
+                           type="text"
+                           name="lastName">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label for="modalAge"
+                           class="form-label">Age</label>
+                    <input class="form-control form-control-sm"
+                           id="modalAge"
+                           type="number"
+                           name="age">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label for="modalEmail"
+                           class="form-label">Email</label>
+                    <input class="form-control form-control-sm"
+                           id="modalEmail"
+                           type="text"
+                           name="email">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2" id="passwordDiv">
+                    <label for="modalPassword"
+                           class="form-label">Password</label>
+                    <input class="form-control form-control-sm"
+                           id="modalPassword"
+                           type="password"
+                           name="password">
+                </div>
+                <div class="row text-center fw-bold fs-6 py-2">
+                    <label class="form-label"
+                           for="modalSelect">Role</label>
+                    <select class="form-select"
+                            id="modalSelect"
+                            multiple="multiple"
+                            name="roleId">
+                        <option disabled>Select roles</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+        <input class="btn btn-primary" id="formButton" type="submit" form="modalForm" value="Edit">
+    </div>
+</div>

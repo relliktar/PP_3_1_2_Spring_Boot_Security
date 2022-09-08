@@ -1,51 +1,44 @@
-<div class="card"
-     xmlns:th="http://www.thymeleaf.org">
+<div class="card">
     <h5 class="card-header">Add new user</h5>
     <div class="card-body">
         <div class="row justify-content-center">
             <form class="col-3"
-                  th:action="@{/admin/saveUser}"
-                  th:object="${newUser}"
                   method="post"
                   id="new">
                 <div class="row text-center fw-bold fs-6">
-                    <label class="form-label" for="labelFirstName">First name</label>
+                    <label class="form-label" for="newFirstName">First name</label>
                     <input class="form-control form-control-sm"
-                           id="labelFirstName" type="text" name="username" th:field="*{username}"/>
+                           id="newFirstName" type="text" name="username"/>
                 </div>
                 <div class="row text-center fw-bold fs-6 py-2">
-                    <label class="form-label" for="labelLastName">Last name</label>
+                    <label class="form-label" for="newLastName">Last name</label>
                     <input class="form-control form-control-sm"
-                           id="labelLastName" type="text" name="lastName" th:field="*{lastName}"/>
+                           id="newLastName" type="text" name="lastName"/>
                 </div>
                 <div class="row text-center fw-bold fs-6 py-2">
-                    <label class="form-label" for="labelAge">Age</label>
+                    <label class="form-label" for="newAge">Age</label>
                     <input class="form-control form-control-sm"
-                           id="labelAge" type="number" name="age" th:field="*{age}"/>
+                           id="newAge" type="number" name="age"/>
                 </div>
                 <div class="row text-center fw-bold fs-6 py-2">
-                    <label class="form-label" for="labelEmail">Email</label>
+                    <label class="form-label" for="newEmail">Email</label>
                     <input class="form-control form-control-sm"
-                           id="labelEmail" type="text" name="email" th:field="*{email}"/>
+                           id="newEmail" type="text" name="email"/>
                 </div>
                 <div class="row text-center fw-bold fs-6 py-2">
-                    <label class="form-label" for="labelPassword">Password</label>
+                    <label class="form-label" for="newPassword">Password</label>
                     <input class="form-control form-control-sm"
-                           id="labelPassword" type="password" name="password" th:field="*{password}"/>
+                           id="newPassword" type="password" name="password"/>
                 </div>
                 <div class="row text-center fw-bold fs-6 py-2">
-                    <label class="form-label" for="labelRole">Role</label>
+                    <label class="form-label" for="newRole">Role</label>
                     <select class="form-select"
-                            id="labelRole" multiple="multiple" size="${roles.size()}" name="roleId">
+                            id="newRole" multiple="multiple" name="roleId">
                         <option disabled>Select roles</option>
-                        <option th:each="role:${roles}"
-                                th:value="${role.getId()}"
-                                th:text="${role.getName()}"
-                                th:selected="${role.getName().equals('ROLE_USER') ? 'selected' :'false'}"></option>
                     </select>
                 </div>
                 <div class="col text-center py-2">
-                    <button class="btn btn-success" type="submit" form="new">Add new user</button>
+                    <input class="btn btn-success" type="submit" value="Add new user"/>
                 </div>
             </form>
         </div>

@@ -32,7 +32,17 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }
