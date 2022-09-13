@@ -25,9 +25,14 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user, Long[] roleId) {
-        user.setRoles(roleService.getSetRoles(roleId));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public void updateUser(User user) {
+        User userInDatabases = userRepository.findById(user.getId()).orElse(null);
+        String password = passwordEncoder.encode(user.getPassword());
+        if (userInDatabases != null) {
+            if (!userInDatabases.getPassword().equals(user.getPassword())) {
+                user.setPassword(password);
+            }
+        }
         userRepository.save(user);
     }
 
@@ -46,3 +51,11 @@ class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElse(null);
     }
 }
+/**
+ * убрать возможность дубликатов по почте
+ * + починить изменение юзера
+ * + удалить лишние контроллеры
+ * + поправить секьюрность
+ * почитать про н+1
+ * + убрать 1 сейв и добавить 1 апдейт
+ */

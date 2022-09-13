@@ -9,7 +9,9 @@ public interface UserService {
 
     void deleteUser(Long id);
 
-    void saveUser(User user, Long[] roles);
+    void updateUser(User user);
+
     void saveUser(User user);
+
     User getUserById(Long id);
 }

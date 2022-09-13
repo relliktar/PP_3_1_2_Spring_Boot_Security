@@ -28,8 +28,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         .then(res => res.json())
         .then(roles => {
             roles.forEach(role => {
-                newSelect.append(new Option(role.name, role.id, false, false));
+                let selectedRole = false;
+                if(role.name==="ROLE_USER"){ selectedRole = true;}
+                newSelect.append(new Option(role.name, role.id, false, selectedRole));
                 modalSelect.append(new Option(role.name, role.id, false, false));
+
             });
         })
     newSelect.setAttribute("size", "" + newSelect.options.length);
@@ -52,8 +55,7 @@ async function loadUser(users) {
                         <td>${user.roles.map(role => " " + role.name.replace('ROLE_', ''))}</td>
                         <td><a class="buttonEdit btn btn-info btn-sm">Edit</a></td>
                         <td><a class="buttonDelete btn btn-danger btn-sm">Delete</a></td>
-                    </tr>
-                   `;
+                    </tr>`;
     });
     return result;
 }

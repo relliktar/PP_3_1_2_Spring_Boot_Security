@@ -10,10 +10,10 @@ import ru.kata.spring.boot_security.demo.model.User;
 
 @RestController
 @RequestMapping("/api/user")
-public class RESTUsersController {
+public class RestUsersController {
 
     @GetMapping()
-    public ResponseEntity<User> userInfo() {
+    public ResponseEntity<User> getUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user != null
                 ? new ResponseEntity<>(user, HttpStatus.OK)

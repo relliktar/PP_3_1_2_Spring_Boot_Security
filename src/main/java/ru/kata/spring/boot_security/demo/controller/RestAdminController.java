@@ -8,22 +8,23 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class RESTAdminController {
+public class RestAdminController {
 
     private final UserService userService;
     private final RoleService roleService;
 
-    public RESTAdminController(UserService userService, RoleService roleService) {
+    public RestAdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
     @GetMapping()
-    public ResponseEntity<List<User>> printUsers() {
+    public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getUsersList();
         return users != null && !users.isEmpty()
                 ? new ResponseEntity<>(users, HttpStatus.OK)
@@ -44,14 +45,14 @@ public class RESTAdminController {
     }
 
     @PostMapping("/saveUser")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
         userService.saveUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @PatchMapping("/saveUser/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-        userService.saveUser(user);
+        userService.updateUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

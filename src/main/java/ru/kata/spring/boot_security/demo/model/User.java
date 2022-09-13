@@ -25,7 +25,7 @@ public class User implements UserDetails {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @Email
     @NotEmpty(message = "Email must not be empty")
     private String email;
